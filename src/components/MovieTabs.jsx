@@ -9,12 +9,15 @@ const MovieTabs = (props) => {
             updateSortBy(value)
         }
     }
+    const getClassLink = (value) => {
+        return `nav-link ${sort_by === value ? "active" : ""}`
+    }
     return (
         <div>
             <ul className="tabs nav nav-pills">
                 <li className="nav-item">
                     <div
-                        className={`nav-link ${sort_by === "popularity.desc" ? "active" : ""}`}
+                        className={getClassLink("popularity.desc")}
                         onClick={handleClick("popularity.desc")}
                     >
                         Popularity
@@ -22,7 +25,7 @@ const MovieTabs = (props) => {
                 </li>
                 <li className="nav-item">
                     <div
-                        className={`nav-link ${sort_by === "revenue.desc" ? "active" : ""}`}
+                        className={getClassLink("revenue.desc")}
                         onClick={handleClick("revenue.desc")}
                     >
                         Revenue
@@ -30,7 +33,7 @@ const MovieTabs = (props) => {
                 </li>
                 <li className="nav-item">
                     <div
-                        className={`nav-link ${sort_by === "vote_average.desc" ? "active" : ""}`}
+                        className={getClassLink("vote_average.desc")}
                         onClick={handleClick("vote_average.desc")}
                     >
                         Vote average desc
