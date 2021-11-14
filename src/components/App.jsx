@@ -18,25 +18,8 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
+  getMovies =() => {
     fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sort_by}`)
-      .then((response) => {
-        return response.json()
-      })
-      .then((data) => {
-        this.setState({
-          movies: data.results
-        })
-      })
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    /* console.log(prevProps);
-    console.log(prevState);
-    console.log(this.props);
-    console.log(this.state); */
-    if (prevState.sort_by !== this.state.sort_by) {
-      fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sort_by}`)
         .then((response) => {
           return response.json()
         })
@@ -45,6 +28,20 @@ class App extends React.Component {
             movies: data.results
           })
         })
+  }
+
+  componentDidMount() {
+    this.getMovies()
+
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    /* console.log(prevProps);
+    console.log(prevState);
+    console.log(this.props);
+    console.log(this.state); */
+    if (prevState.sort_by !== this.state.sort_by) {
+      this.getMovies()
     }
   }
 
