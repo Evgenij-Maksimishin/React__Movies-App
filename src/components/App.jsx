@@ -30,6 +30,24 @@ class App extends React.Component {
       })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    /* console.log(prevProps);
+    console.log(prevState);
+    console.log(this.props);
+    console.log(this.state); */
+    if (prevState.sort_by !== this.state.sort_by) {
+      fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sort_by}`)
+        .then((response) => {
+          return response.json()
+        })
+        .then((data) => {
+          this.setState({
+            movies: data.results
+          })
+        })
+    }
+  }
+
   deleteMovie = movie => {
     console.log(movie.id);
     const updateMovies = this.state.movies.filter(item => item.id !== movie.id);
@@ -74,10 +92,10 @@ class App extends React.Component {
           <div className="col-9">
             <div className="row mb-4">
               <div className="col-12">
-            <MovieTabs 
-              sort_by={this.state.sort_by} 
-              updateSortBy={this.updateSortBy}
-            />
+                <MovieTabs
+                  sort_by={this.state.sort_by}
+                  updateSortBy={this.updateSortBy}
+                />
               </div>
             </div>
             <div className="row">
